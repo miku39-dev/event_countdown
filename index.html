@@ -6,197 +6,217 @@
 <title>カウントダウンツール</title>
 <style>
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 20px;
-background-color: #ffffff;
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #ffffff;
 }
 
 .container {
-text-align: center;
-width: 100%;
-max-width: 600px;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
 }
 
 /* カウントダウン表示エリア（外枠） */
 .countdown-wrapper {
-margin-bottom: 40px;
-border-radius: 20px;
-overflow: hidden;
-position: relative;
-aspect-ratio: 1 / 1;
+  flex: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-width: 300px;
 }
 
 /* 背景画像レイヤー */
 .countdown-bg {
-position: absolute;
-top: -20px;
-left: -20px;
-right: -20px;
-bottom: -20px;
-background-size: calc(100% + 40px) auto;
-background-position: center center;
-background-repeat: no-repeat;
-z-index: 1;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-size: calc(100% + 40px) auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 1;
 }
 
 /* 半透明オーバーレイ + コンテンツ */
 .countdown-display {
-position: relative;
-z-index: 2;
-padding: 40px 20px;
-background: rgba(0, 0, 0, 0.4);
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 2;
+  padding: 40px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
 .event-name {
-font-size: 2.0rem;
-margin-bottom: 10px;
-color: #ffffff;
-transition: color 0.3s ease;
+  font-size: 2.0rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+  transition: color 0.3s ease;
 }
 
 .countdown-text {
-font-size: 4rem;
-font-weight: bold;
-color: #ffffff;
-transition: color 0.3s ease;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #ffffff;
+  transition: color 0.3s ease;
 }
 
 .countdown-text .days {
-font-size: 8rem;
-display: inline-block;
-margin: 0 5px;
+  font-size: 8rem;
+  display: inline-block;
+  margin: 0 5px;
 }
 
 /* 設定パネル */
 .settings-panel {
-background: rgba(255, 255, 255, 0.95);
-border-radius: 16px;
-padding: 25px;
-box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
 }
 
 .settings-title {
-font-size: 1.2rem;
-font-weight: bold;
-margin-bottom: 20px;
-color: #333;
-border-bottom: 2px solid #eee;
-padding-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
 }
 
 .setting-group {
-margin-bottom: 18px;
-text-align: left;
+  margin-bottom: 18px;
+  text-align: left;
 }
 
 .setting-group label {
-display: block;
-font-size: 0.9rem;
-font-weight: 600;
-color: #555;
-margin-bottom: 6px;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 6px;
 }
 
 .setting-group input[type="text"],
 .setting-group input[type="date"],
 .setting-group input[type="url"] {
-width: 100%;
-padding: 12px 15px;
-border: 2px solid #e0e0e0;
-border-radius: 10px;
-font-size: 1rem;
-transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
 .setting-group input:focus {
-outline: none;
-border-color: #667eea;
+  outline: none;
+  border-color: #667eea;
 }
 
 .color-inputs {
-display: flex;
-gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .color-input-wrapper {
-flex: 1;
+  flex: 1;
 }
 
 .color-input-wrapper label {
-font-size: 0.85rem;
+  font-size: 0.85rem;
 }
 
 .color-picker-container {
-display: flex;
-align-items: center;
-gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 input[type="color"] {
-width: 50px;
-height: 40px;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-padding: 0;
+  width: 50px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .color-code {
-flex: 1;
-padding: 10px;
-border: 2px solid #e0e0e0;
-border-radius: 8px;
-font-size: 0.9rem;
-font-family: monospace;
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: monospace;
 }
 
 /* 注意書き */
 .note {
-font-size: 0.75rem;
-color: #888;
-margin-top: 5px;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 5px;
 }
 
 /* レスポンシブ */
-@media (max-width: 480px) {
-.countdown-text {
-font-size: 2rem;
-}
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    max-width: 500px;
+  }
 
-.countdown-text .days {
-font-size: 3.5rem;
-}
+  .countdown-wrapper {
+    width: 100%;
+    min-width: auto;
+  }
 
-.event-name {
-font-size: 1.2rem;
-}
+  .settings-panel {
+    width: 100%;
+    min-width: auto;
+  }
 
-.color-inputs {
-flex-direction: column;
-}
+  .countdown-text {
+    font-size: 2rem;
+  }
+
+  .countdown-text .days {
+    font-size: 3.5rem;
+  }
+
+  .event-name {
+    font-size: 1.2rem;
+  }
+
+  .color-inputs {
+    flex-direction: column;
+  }
 }
 </style>
 </head>
 <body>
 <div class="container">
-<!-- カウントダウン表示 -->
+<!-- カウントダウン表示（左側） -->
 <div class="countdown-wrapper">
 <div class="countdown-bg" id="countdownBg"></div>
 <div class="countdown-display" id="countdownDisplay">
@@ -207,7 +227,7 @@ flex-direction: column;
 </div>
 </div>
 
-<!-- 設定パネル -->
+<!-- 設定パネル（右側） -->
 <div class="settings-panel">
 <div class="settings-title">⚙️ 設定</div>
 
@@ -296,7 +316,6 @@ today.setHours(0, 0, 0, 0);
 const diffTime = target - today;
 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-// 0日以下なら0日と表示
 daysElement.textContent = diffDays > 0 ? diffDays : 0;
 }
 
@@ -386,43 +405,30 @@ image: params.get('image')
 function initEmbedMode() {
 const params = getUrlParams();
 
-// パラメータがあれば埋め込みモード
 if (params.event || params.date) {
-// 設定パネルを非表示
 document.querySelector('.settings-panel').style.display = 'none';
-
-// bodyの余白を調整
 document.body.style.padding = '0';
 document.body.style.minHeight = 'auto';
-
-// wrapperの余白を削除
 document.querySelector('.countdown-wrapper').style.margin = '0';
-
-// コンテナを全幅に
 document.querySelector('.container').style.maxWidth = '100%';
 
-// イベント名を設定
 if (params.event) {
 document.getElementById('displayEventName').textContent = params.event + 'まで';
 }
 
-// 日付を設定
 if (params.date) {
 document.getElementById('targetDate').value = params.date;
 updateCountdown();
 }
 
-// オーバーレイ色を設定
 if (params.bg) {
 applyOverlayColor('#' + params.bg);
 }
 
-// 文字色を設定
 if (params.text) {
 applyTextColor('#' + params.text);
 }
 
-// 背景画像を設定
 if (params.image) {
 document.getElementById('countdownBg').style.backgroundImage = `url('${params.image}')`;
 }
@@ -452,12 +458,9 @@ const textarea = document.getElementById('embedUrl');
 textarea.value = embedUrl;
 textarea.style.display = 'block';
 
-// クリップボードにコピー
 navigator.clipboard.writeText(embedUrl).then(() => {
 alert('URLをコピーしました！');
-}).catch(() => {
-// コピー失敗時は手動でコピーしてもらう
-});
+}).catch(() => {});
 }
 
 // 毎日0時にカウントダウンを更新
