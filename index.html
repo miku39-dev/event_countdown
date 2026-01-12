@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>カウントダウンツール</title>
+<title>カウントダウンメーカー</title>
 <style>
 * {
   margin: 0;
@@ -75,14 +75,14 @@ body {
 }
 
 .countdown-text {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #ffffff;
   transition: color 0.3s ease;
 }
 
 .countdown-text .days {
-  font-size: 8rem;
+  font-size: 6rem;
   display: inline-block;
   margin: 0 5px;
 }
@@ -220,10 +220,10 @@ input[type="color"] {
 <div class="countdown-wrapper">
 <div class="countdown-bg" id="countdownBg"></div>
 <div class="countdown-display" id="countdownDisplay">
-<div class="event-name" id="displayEventName">イベント名</div>
 <div class="countdown-text">
 あと<span class="days" id="daysCount">--</span>日
 </div>
+<div class="event-name" id="displayEventName">イベント名</div>
 </div>
 </div>
 
