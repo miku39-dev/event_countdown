@@ -6,211 +6,229 @@
 <title>カウントダウンメーカー</title>
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
 body {
-  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #ffffff;
+font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+background-color: #ffffff;
 }
 
 .container {
-  width: 100%;
-  max-width: 1000px;
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
+width: 100%;
+max-width: 1000px;
+display: flex;
+gap: 30px;
+align-items: flex-start;
 }
 
 /* カウントダウン表示エリア（外枠） */
 .countdown-wrapper {
-  flex: 1;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  aspect-ratio: 1 / 1;
-  min-width: 300px;
+flex: 1;
+border-radius: 20px;
+overflow: hidden;
+position: relative;
+aspect-ratio: 1 / 1;
+min-width: 300px;
 }
 
 /* 背景画像レイヤー */
 .countdown-bg {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  right: -20px;
-  bottom: -20px;
-  background-size: calc(100% + 40px) auto;
-  background-position: center center;
-  background-repeat: no-repeat;
-  z-index: 1;
+position: absolute;
+top: -20px;
+left: -20px;
+right: -20px;
+bottom: -20px;
+background-size: calc(100% + 40px) auto;
+background-position: center center;
+background-repeat: no-repeat;
+z-index: 1;
 }
 
 /* 半透明オーバーレイ + コンテンツ */
 .countdown-display {
-  position: relative;
-  z-index: 2;
-  padding: 40px 20px;
-  background: rgba(0, 0, 0, 0.4);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
+position: relative;
+z-index: 2;
+padding: 40px 20px;
+background: rgba(0, 0, 0, 0.4);
+height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+transition: background-color 0.3s ease;
+}
+
+/* 文字位置の設定 */
+.countdown-display.position-top {
+justify-content: flex-start;
+padding-top: 60px;
+}
+
+.countdown-display.position-center {
+justify-content: center;
+}
+
+.countdown-display.position-bottom {
+justify-content: flex-end;
+padding-bottom: 60px;
 }
 
 .event-name {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #ffffff;
-  transition: color 0.3s ease;
+font-size: 1.5rem;
+margin-bottom: 10px;
+color: #ffffff;
+transition: color 0.3s ease;
 }
 
 .countdown-text {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ffffff;
-  transition: color 0.3s ease;
+font-size: 3rem;
+font-weight: bold;
+color: #ffffff;
+transition: color 0.3s ease;
 }
 
 .countdown-text .days {
-  font-size: 6rem;
-  display: inline-block;
-  margin: 0 5px;
+font-size: 6rem;
+display: inline-block;
+margin: 0 5px;
 }
 
 /* 設定パネル */
 .settings-panel {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  min-width: 300px;
+flex: 1;
+background: rgba(255, 255, 255, 0.95);
+border-radius: 16px;
+padding: 25px;
+box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+min-width: 300px;
 }
 
 .settings-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
+font-size: 1.2rem;
+font-weight: bold;
+margin-bottom: 20px;
+color: #333;
+border-bottom: 2px solid #eee;
+padding-bottom: 10px;
 }
 
 .setting-group {
-  margin-bottom: 18px;
-  text-align: left;
+margin-bottom: 18px;
+text-align: left;
 }
 
 .setting-group label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 6px;
+display: block;
+font-size: 0.9rem;
+font-weight: 600;
+color: #555;
+margin-bottom: 6px;
 }
 
 .setting-group input[type="text"],
 .setting-group input[type="date"],
-.setting-group input[type="url"] {
-  width: 100%;
-  padding: 12px 15px;
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+.setting-group input[type="url"],
+.setting-group select {
+width: 100%;
+padding: 12px 15px;
+border: 2px solid #e0e0e0;
+border-radius: 10px;
+font-size: 1rem;
+transition: border-color 0.3s ease;
+background-color: #fff;
 }
 
-.setting-group input:focus {
-  outline: none;
-  border-color: #667eea;
+.setting-group input:focus,
+.setting-group select:focus {
+outline: none;
+border-color: #667eea;
 }
 
 .color-inputs {
-  display: flex;
-  gap: 15px;
+display: flex;
+gap: 15px;
 }
 
 .color-input-wrapper {
-  flex: 1;
+flex: 1;
 }
 
 .color-input-wrapper label {
-  font-size: 0.85rem;
+font-size: 0.85rem;
 }
 
 .color-picker-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
 }
 
 input[type="color"] {
-  width: 50px;
-  height: 40px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 0;
+width: 50px;
+height: 40px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+padding: 0;
 }
 
 .color-code {
-  flex: 1;
-  padding: 10px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-family: monospace;
+flex: 1;
+padding: 10px;
+border: 2px solid #e0e0e0;
+border-radius: 8px;
+font-size: 0.9rem;
+font-family: monospace;
 }
 
 /* 注意書き */
 .note {
-  font-size: 0.75rem;
-  color: #888;
-  margin-top: 5px;
+font-size: 0.75rem;
+color: #888;
+margin-top: 5px;
 }
 
 /* レスポンシブ */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    max-width: 500px;
-  }
+.container {
+flex-direction: column;
+max-width: 500px;
+}
 
-  .countdown-wrapper {
-    width: 100%;
-    min-width: auto;
-  }
+.countdown-wrapper {
+width: 100%;
+min-width: auto;
+}
 
-  .settings-panel {
-    width: 100%;
-    min-width: auto;
-  }
+.settings-panel {
+width: 100%;
+min-width: auto;
+}
 
-  .countdown-text {
-    font-size: 2rem;
-  }
+.countdown-text {
+font-size: 2rem;
+}
 
-  .countdown-text .days {
-    font-size: 3.5rem;
-  }
+.countdown-text .days {
+font-size: 3.5rem;
+}
 
-  .event-name {
-    font-size: 1.2rem;
-  }
+.event-name {
+font-size: 1.2rem;
+}
 
-  .color-inputs {
-    flex-direction: column;
-  }
+.color-inputs {
+flex-direction: column;
+}
 }
 </style>
 </head>
@@ -219,7 +237,7 @@ input[type="color"] {
 <!-- カウントダウン表示（左側） -->
 <div class="countdown-wrapper">
 <div class="countdown-bg" id="countdownBg"></div>
-<div class="countdown-display" id="countdownDisplay">
+<div class="countdown-display position-center" id="countdownDisplay">
 <div class="countdown-text">
 あと<span class="days" id="daysCount">--</span>日
 </div>
@@ -239,6 +257,15 @@ input[type="color"] {
 <div class="setting-group">
 <label for="targetDate">📅 目標日</label>
 <input type="date" id="targetDate" onchange="updateCountdown()">
+</div>
+
+<div class="setting-group">
+<label for="textPosition">📍 文字の位置</label>
+<select id="textPosition" onchange="updateTextPosition()">
+<option value="top">上</option>
+<option value="center" selected>中央</option>
+<option value="bottom">下</option>
+</select>
 </div>
 
 <div class="setting-group">
@@ -326,6 +353,19 @@ const displayElement = document.getElementById('displayEventName');
 displayElement.textContent = eventName ? eventName + 'まで' : 'イベント名';
 }
 
+// 文字位置更新
+function updateTextPosition() {
+const position = document.getElementById('textPosition').value;
+applyTextPosition(position);
+}
+
+// 文字位置を適用
+function applyTextPosition(position) {
+const displayElement = document.getElementById('countdownDisplay');
+displayElement.classList.remove('position-top', 'position-center', 'position-bottom');
+displayElement.classList.add('position-' + position);
+}
+
 // HEXカラーをRGBAに変換（透明度0.4固定）
 function hexToRgba(hex, alpha = 0.4) {
 const r = parseInt(hex.slice(1, 3), 16);
@@ -397,7 +437,8 @@ event: params.get('event'),
 date: params.get('date'),
 bg: params.get('bg'),
 text: params.get('text'),
-image: params.get('image')
+image: params.get('image'),
+position: params.get('position')
 };
 }
 
@@ -432,6 +473,10 @@ applyTextColor('#' + params.text);
 if (params.image) {
 document.getElementById('countdownBg').style.backgroundImage = `url('${params.image}')`;
 }
+
+if (params.position) {
+applyTextPosition(params.position);
+}
 }
 }
 
@@ -445,12 +490,14 @@ const targetDate = document.getElementById('targetDate').value;
 const bgColor = document.getElementById('bgColorCode').value.replace('#', '');
 const textColor = document.getElementById('textColorCode').value.replace('#', '');
 const bgImage = document.getElementById('bgImage').value;
+const textPosition = document.getElementById('textPosition').value;
 
 if (eventName) params.push('event=' + encodeURIComponent(eventName));
 if (targetDate) params.push('date=' + targetDate);
 if (bgColor) params.push('bg=' + bgColor);
 if (textColor) params.push('text=' + textColor);
 if (bgImage) params.push('image=' + encodeURIComponent(bgImage));
+if (textPosition && textPosition !== 'center') params.push('position=' + textPosition);
 
 const embedUrl = baseUrl + '?' + params.join('&');
 
