@@ -22,6 +22,17 @@ padding: 20px;
 background-color: #ffffff;
 }
 
+/* ページタイトル */
+.page-title {
+width: 100%;
+max-width: 1000px;
+text-align: left;
+font-size: 1.8rem;
+font-weight: bold;
+color: #333;
+margin-bottom: 20px;
+}
+
 .container {
 width: 100%;
 max-width: 1000px;
@@ -197,8 +208,34 @@ color: #888;
 margin-top: 5px;
 }
 
+/* フッター */
+.footer {
+width: 100%;
+max-width: 1000px;
+text-align: center;
+margin-top: 25px;
+font-size: 0.85rem;
+color: #666;
+}
+
+.footer a {
+color: #667eea;
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+.footer a:hover {
+color: #5a6fd6;
+text-decoration: underline;
+}
+
 /* レスポンシブ */
 @media (max-width: 768px) {
+.page-title {
+font-size: 1.4rem;
+text-align: center;
+}
+
 .container {
 flex-direction: column;
 max-width: 500px;
@@ -229,10 +266,17 @@ font-size: 1.2rem;
 .color-inputs {
 flex-direction: column;
 }
+
+.footer {
+font-size: 0.75rem;
+}
 }
 </style>
 </head>
 <body>
+<!-- ページタイトル -->
+<h1 class="page-title">カウントダウンメーカー</h1>
+
 <div class="container">
 <!-- カウントダウン表示（左側） -->
 <div class="countdown-wrapper">
@@ -321,6 +365,11 @@ display: none;
 <p class="note">※ 生成されたURLをコピーして埋め込みに使用してください</p>
 </div>
 </div>
+</div>
+
+<!-- フッター -->
+<div class="footer">
+Made with by 美玖 © 2026｜<a href="https://x.com/miku_notion39" target="_blank" rel="noopener noreferrer">𝕏 でフォロー</a>｜<a href="https://note.com/miku_notion39" target="_blank" rel="noopener noreferrer">noteで記事をみる</a>
 </div>
 
 <script>
@@ -448,6 +497,8 @@ const params = getUrlParams();
 
 if (params.event || params.date) {
 document.querySelector('.settings-panel').style.display = 'none';
+document.querySelector('.page-title').style.display = 'none';
+document.querySelector('.footer').style.display = 'none';
 document.body.style.padding = '0';
 document.body.style.minHeight = 'auto';
 document.querySelector('.countdown-wrapper').style.margin = '0';
